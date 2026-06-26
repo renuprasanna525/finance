@@ -1,0 +1,189 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    font-family: 'Poppins', sans-serif;
+
+    background: linear-gradient(135deg,
+            #7c4dff,
+            #8e6dfc,
+            #f3b4d8,
+            #ff7ca8,
+            #ff4565);
+}
+
+.signup-container {
+    width: 100%;
+    max-width: 1200px;
+
+    background: #fff;
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .15);
+}
+
+.signup-left {
+    padding: 30px;
+}
+
+.left-wrapper {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.signup-left h1 {
+    text-align: center;
+    font-size: 34px;
+    margin-bottom: 8px;
+}
+
+.signup-left h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+
+    padding: 15px;
+
+    border: 1px solid #ddd;
+    border-radius: 12px;
+
+    font-size: 15px;
+}
+
+.password-box {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.signup-btn {
+    width: 200px;
+
+    display: block;
+    margin: 20px auto 0;
+
+    border: none;
+
+    background: #6d5dfc;
+    color: #fff;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-text {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login-text a {
+    color: #ff4f6d;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.divider {
+    text-align: center;
+    margin: 18px 0;
+    color: #777;
+}
+
+.google-btn {
+    width: 100%;
+
+    padding: 15px;
+
+    border: 1px solid #ddd;
+    border-radius: 12px;
+
+    background: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    cursor: pointer;
+}
+
+.google-btn img {
+    width: 24px;
+}
+
+small {
+    display: block;
+    text-align: center;
+
+    margin-top: 10px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #777;
+}
+
+.signup-right {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
+.logo-wrap {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+}
+
+.logo {
+    width: 220px;
+}
+
+.main-image {
+    width: 100%;
+    max-width: 700px;
+
+    object-fit: contain;
+}

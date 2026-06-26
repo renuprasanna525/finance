@@ -1,0 +1,711 @@
+/* Header Section */
+.topbar {
+    background: white;
+    padding: 25px 40px;
+    border-radius: 25px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topbar h1 {
+    font-size: 25px;
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.bell-btn {
+    width: 60px;
+    height: 60px;
+    border: none;
+    background: #8b5cf6;
+    color: white;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.bell-btn i {
+    font-size: 22px;
+}
+
+.profile-section img {
+    width: 70px;
+    height: 70px;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.page-content,
+.settings-container {
+    padding: 30px;
+}
+
+
+/* Grid Layout */
+
+.settings-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    align-items: start;
+}
+
+
+/* Cards */
+
+.settings-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .06);
+}
+
+.card-header {
+    margin-bottom: 25px;
+}
+
+.card-header h2 {
+    font-size: 24px;
+    color: #222;
+    margin-bottom: 8px;
+}
+
+.card-header p {
+    color: #777;
+    font-size: 14px;
+}
+
+
+/* Profile Upload */
+
+.profile-upload {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 35px;
+}
+
+.profile-upload img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.upload-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.upload-content span {
+    font-size: 13px;
+    color: #777;
+}
+
+
+/* Buttons */
+
+.upload-btn {
+    width: fit-content;
+    border: none;
+    background: #6d5dfc;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.upload-btn i {
+    margin-right: 8px;
+}
+
+.save-btn {
+    border: none;
+    background: #6d5dfc;
+    color: #fff;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.change-password-btn {
+    border: none;
+    background: #6d5dfc;
+    color: #fff;
+    padding: 14px 22px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+/* Form */
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #dcdcdc;
+    border-radius: 12px;
+    outline: none;
+    font-size: 14px;
+    transition: .3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #6d5dfc;
+}
+
+
+/* Password Field */
+
+.password-field {
+    position: relative;
+}
+
+.password-field input {
+    padding-right: 50px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    cursor: pointer;
+}
+
+
+/* Security Right Side */
+
+.security-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.security-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.security-item h3 {
+    font-size: 18px;
+    color: #222;
+    margin-bottom: 6px;
+}
+
+.security-item p {
+    color: #777;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* Toggle Switch */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    height: 34px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    inset: 0;
+    background: #d6d6d6;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 3px;
+    bottom: 3px;
+    background: #fff;
+    border-radius: 50%;
+    transition: .3s;
+}
+
+.switch input:checked+.slider {
+    background: #58d955;
+}
+
+.switch input:checked+.slider::before {
+    transform: translateX(28px);
+}
+
+
+/* Responsive */
+
+@media (max-width: 992px) {
+
+    .settings-container {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-upload {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 576px) {
+
+    .page-content,
+    .settings-container {
+        padding: 20px;
+    }
+
+    .settings-card {
+        padding: 22px;
+    }
+
+    .security-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Overlay */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .45);
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+    z-index: 9999;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+
+/* Modal */
+
+.password-modal {
+    width: 100%;
+    max-width: 500px;
+
+    background: #fff;
+    border-radius: 20px;
+
+    padding: 30px;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .15);
+
+    animation: modalFade .25s ease;
+}
+
+@keyframes modalFade {
+
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Header */
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+.modal-header h2 {
+    font-size: 24px;
+    color: #222;
+}
+
+.close-modal {
+    border: none;
+    background: transparent;
+
+    font-size: 22px;
+    cursor: pointer;
+
+    color: #666;
+}
+
+
+/* Form */
+
+.password-modal .form-group {
+    margin-bottom: 20px;
+}
+
+.password-modal label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-weight: 600;
+    color: #333;
+}
+
+.password-modal label span {
+    color: red;
+}
+
+
+/* Inputs */
+
+.password-input {
+    position: relative;
+}
+
+.password-input input {
+    width: 100%;
+
+    padding: 14px 50px 14px 16px;
+
+    border: 1px solid #d8d8d8;
+    border-radius: 12px;
+
+    outline: none;
+
+    font-size: 14px;
+}
+
+.password-input input:focus {
+    border-color: #6d5dfc;
+}
+
+.toggle-eye {
+    position: absolute;
+
+    right: 18px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #777;
+    cursor: pointer;
+}
+
+
+/* Buttons */
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    gap: 15px;
+
+    margin-top: 30px;
+}
+
+.cancel-btn {
+    border: 1px solid #ddd;
+
+    background: #fff;
+    color: #444;
+
+    padding: 12px 22px;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+}
+
+.update-password-btn {
+    border: none;
+
+    background: #6d5dfc;
+    color: #fff;
+
+    padding: 12px 22px;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+}
+
+.update-password-btn:hover,
+.change-password-btn:hover {
+    opacity: .9;
+}
+
+.settings-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .06);
+}
+
+.settings-card h2 {
+    font-size: 25px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #111;
+}
+
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0;
+}
+
+.setting-action {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.setting-row h4 {
+    font-size: 20px;
+    font-weight: 500;
+    color: #222;
+}
+
+.status-text {
+    min-width: 35px;
+    font-size: 20px;
+    color: #222;
+}
+
+
+/* Toggle Switch */
+
+.switch {
+    position: relative;
+    width: 70px;
+    height: 34px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    inset: 0;
+    background: #d9d9d9;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    left: 4px;
+    top: 4px;
+    background: #fff;
+    border-radius: 50%;
+    transition: .3s;
+}
+
+.switch input:checked+.slider {
+    background: #58d955;
+}
+
+.switch input:checked+.slider::before {
+    transform: translateX(34px);
+}
+
+@media (max-width: 768px) {
+
+    .setting-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .setting-row h4 {
+        font-size: 18px;
+    }
+
+    .status-text {
+        font-size: 16px;
+    }
+}
+
+/* Data Management & Danger Zone */
+
+.action-settings-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.action-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .06);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.action-card h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 15px;
+}
+
+.action-card p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+
+/* Export Button */
+
+.export-btn {
+    width: fit-content;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    border: none;
+    outline: none;
+
+    background: #6d5dfc;
+    color: #fff;
+
+    padding: 14px 22px;
+
+    border-radius: 12px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.export-btn:hover {
+    background: #5b4de0;
+    transform: translateY(-2px);
+}
+
+
+/* Danger Zone */
+
+.danger-card {
+    border: 1px solid rgba(239, 68, 68, .15);
+}
+
+.delete-btn {
+    width: fit-content;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    border: none;
+    outline: none;
+
+    background: #ef4444;
+    color: #fff;
+
+    padding: 14px 22px;
+
+    border-radius: 12px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.delete-btn:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+
+    .action-settings-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .action-card {
+        padding: 25px;
+    }
+}
+
+/* error line */
+.error {
+    display: block;
+    color: #dc2626;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+input.error-border {
+    border: 1px solid #dc2626;
+}
+
+input.success-border {
+    border: 1px solid #22c55e;
+}

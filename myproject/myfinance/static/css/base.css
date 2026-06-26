@@ -1,0 +1,290 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+
+    background: url("../images/bodybg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.container {
+    display: flex;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 250px;
+    min-height: 100vh;
+
+    /* Blue + Pink Gradient */
+    background: linear-gradient(180deg,
+            rgba(16, 24, 255, 0.92) 0%,
+            rgba(92, 15, 255, 0.90) 35%,
+            rgba(180, 0, 255, 0.88) 70%,
+            rgba(255, 0, 128, 0.85) 100%);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    overflow: hidden;
+
+    box-shadow: 5px 0 30px rgba(0, 0, 0, .15);
+}
+
+/* LOGO SECTION */
+
+.logo {
+    background: #fff;
+    padding: 6px;
+    margin: 0;
+    width: 100%;
+}
+
+.logo img {
+    width: 100%;
+    height: 85px;
+    /* adjust 50px-70px as needed */
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+    background: #fff;
+    padding: 3px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+/* MENU */
+
+.sidebar ul {
+    list-style: none;
+    padding: 20px;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 12px;
+}
+
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    text-decoration: none;
+    color: rgba(255, 255, 255, .85);
+
+    padding: 15px 18px;
+    border-radius: 14px;
+
+    transition: all .3s ease;
+}
+
+.sidebar ul li a i {
+    font-size: 22px;
+}
+
+
+/* HOVER */
+
+.sidebar ul li a:hover {
+    background: rgba(255, 255, 255, .15);
+
+    color: #fff;
+
+    transform: translateX(5px);
+}
+
+
+/* ACTIVE */
+
+.sidebar ul li a.active {
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, .28),
+            rgba(255, 255, 255, .15));
+
+    backdrop-filter: blur(12px);
+
+    color: #fff;
+
+    font-weight: 600;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+
+    transform: translateX(8px);
+}
+
+
+/* Active Icon */
+
+.sidebar ul li a.active i {
+    color: #fff;
+}
+
+
+/* Left Indicator */
+
+.sidebar ul li a.active::before {
+    content: "";
+
+    width: 4px;
+    height: 28px;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    position: absolute;
+
+    left: 8px;
+}
+
+.sidebar ul li a {
+    position: relative;
+}
+
+/* MAIN */
+
+.main-content {
+    margin-left: 270px;
+    padding: 20px;
+    width: 100%;
+}
+
+.page-content {
+    background: #fff;
+    border-radius: 25px;
+    padding: 40px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 20px auto;
+    box-sizing: border-box;
+}
+
+/* MODAL */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    width: 420px;
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.logout-image {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f3f0ff;
+    border-radius: 50%;
+}
+
+.logout-image img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.modal-content h2 {
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    margin-bottom: 25px;
+    color: #838181;
+}
+
+.modal-btns {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.cancel-btn {
+    padding: 12px 25px;
+    border: none;
+    background: #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.logout-btn {
+    text-decoration: none;
+    background: #6d5dfc;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+}
+
+/* FOOTER */
+
+.dashboard-footer {
+    margin-top: 40px;
+    padding: 20px 0;
+}
+
+.dashboard-footer hr {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 20px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 20px;
+}
+
+.footer-content p {
+    color: #ffffff;
+    font-size: 15px;
+    margin: 0;
+}
+
+.footer-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 15px;
+    transition: 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #ffd700;
+}

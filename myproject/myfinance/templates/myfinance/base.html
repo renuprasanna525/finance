@@ -1,0 +1,188 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Finance Dashboard</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block extra_css %}
+    {% endblock %}
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <img src="{% static 'images/vetrilogo.png' %}" alt="">
+
+            </div>
+
+            <ul>
+
+                <li>
+                    <a href="{% url 'dashboard' %}"
+                        class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                        <i class="fa-solid fa-table-columns"></i>
+                        Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'transactions' %}"
+                        class="{% if request.resolver_match.url_name == 'transactions' %}active{% endif %}">
+                        <i class="fa-solid fa-money-bill-transfer"></i>
+                        Transactions
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'bills' %}"
+                        class="{% if request.resolver_match.url_name == 'bills' %}active{% endif %}">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                        Bills
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'reports' %}"
+                        class="{% if request.resolver_match.url_name == 'reports' %}active{% endif %}">
+                        <i class="fa-solid fa-chart-column"></i>
+                        Reports
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'budgets' %}"
+                        class="{% if request.resolver_match.url_name == 'budgets' %}active{% endif %}">
+                        <i class="fa-solid fa-wallet"></i>
+                        Budgets
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'accounts' %}"
+                        class="{% if request.resolver_match.url_name == 'accounts' %}active{% endif %}">
+                        <i class="fa-solid fa-building-columns"></i>
+                        Accounts
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'settings' %}"
+                        class="{% if request.resolver_match.url_name == 'settings' %}active{% endif %}">
+                        <i class="fa-solid fa-gear"></i>
+                        Settings
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" onclick="openLogoutModal()">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Logout
+                    </a>
+                </li>
+
+            </ul>
+
+        </aside>
+
+
+        <!-- MAIN -->
+
+        <main class="main-content">
+            {% block page_header %}
+            {% endblock %}
+
+            {% block content %}
+            {% endblock %}
+            <!-- FOOTER -->
+
+            <footer class="dashboard-footer">
+
+                <hr>
+
+                <div class="footer-content">
+
+                    <p>
+                        © 2026 Smart Finance. All Rights Reserved.
+                    </p>
+
+                    <div class="footer-links">
+
+                        <a href="#">Privacy Policy</a>
+
+                        <a href="#">Help Center</a>
+
+                        <a href="#">Terms</a>
+
+                        <a href="#">Contact</a>
+
+                    </div>
+
+                </div>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <!-- LOGOUT MODAL -->
+
+    <div id="logoutModal" class="modal">
+
+        <div class="modal-content">
+            <div class="logout-image">
+
+                <img src="{% static 'images/logoutimg.png' %}" alt="Logout">
+
+            </div>
+
+            <h2>Logout</h2>
+
+            <p>
+                Are you sure want to log out from your account?
+            </p>
+
+            <div class="modal-btns">
+
+                <button onclick="closeLogoutModal()" class="cancel-btn">
+                    Cancel
+                </button>
+
+                <a href="{% url 'logged_out' %}" class="logout-btn">
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        function openLogoutModal() {
+            document.getElementById("logoutModal").style.display = "flex";
+        }
+
+        function closeLogoutModal() {
+            document.getElementById("logoutModal").style.display = "none";
+        }
+
+    </script>
+
+</body>
+
+</html>

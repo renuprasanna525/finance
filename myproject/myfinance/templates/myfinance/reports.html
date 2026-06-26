@@ -1,0 +1,360 @@
+{% extends 'myfinance/base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/reports.css' %}">
+{% endblock %}
+{% block page_header %}
+
+<header class="topbar">
+
+    <div>
+
+        <h1>Reports</h1>
+
+        <p>Analyze your income and expenses</p>
+
+    </div>
+
+    <div class="profile-section">
+
+        <button class="bell-btn">
+            <i class="fa-regular fa-bell"></i>
+        </button>
+
+        <img src="{% static 'images/lillyprofile.png' %}" alt="">
+
+        <span>Lilly</span>
+
+    </div>
+
+</header>
+{% endblock %}
+{% block content %}
+<section class="page-content">
+
+    <section class="summary-grid">
+
+        {% for item in summaries %}
+
+        <div class="summary-card {{ item.color }}">
+
+            <div class="card-top">
+
+                <h3>{{ item.title }}</h3>
+
+                <div class="icon-box">
+                    <i class="{{ item.icon }}"></i>
+                </div>
+
+            </div>
+
+            <h2>{{ item.amount }}</h2>
+
+            <span>{{ item.subtitle }}</span>
+
+            <div class="wave"></div>
+
+        </div>
+
+        {% endfor %}
+
+    </section>
+    <section class="report-actions">
+
+        <div class="filter-export-wrapper">
+
+            <div class="date-filter">
+
+                <i class="fa-regular fa-calendar"></i>
+
+                <select>
+                    <option value="7">Last 7 Days</option>
+                    <option value="30">Last 30 Days</option>
+                    <option value="90">Last 90 Days</option>
+                    <option value="custom">Custom Range</option>
+                </select>
+
+            </div>
+
+            <button class="export-btn">
+
+                <i class="fa-solid fa-upload"></i>
+
+                Export
+
+            </button>
+
+        </div>
+
+    </section>
+    <section class="trend-section">
+
+        <h2>Last Week Income & Expenses Trend</h2>
+
+        <div class="trend-chart">
+
+            <!-- Y Axis -->
+            <div class="y-axis">
+                <span>6000</span>
+                <span>4500</span>
+                <span>3000</span>
+                <span>1500</span>
+                <span>0</span>
+            </div>
+
+            <div class="chart-area">
+
+                <svg viewBox="0 0 1200 450" preserveAspectRatio="none">
+
+                    <defs>
+
+                        <!-- Income Gradient -->
+                        <linearGradient id="incomeFill" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#10b981" stop-opacity="0.9" />
+                            <stop offset="100%" stop-color="#10b981" stop-opacity="0" />
+                        </linearGradient>
+
+                        <!-- Expense Gradient -->
+                        <linearGradient id="expenseFill" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#6d4df2" stop-opacity="0.9" />
+                            <stop offset="100%" stop-color="#6d4df2" stop-opacity="0" />
+                        </linearGradient>
+
+                    </defs>
+
+                    <!-- Income Shape -->
+                    <path d="
+                    M0,150
+                    C70,300 120,420 210,450
+                    C300,450 350,450 420,450
+                    C510,350 570,250 660,250
+                    C750,250 810,350 900,450
+                    L900,450
+                    L0,450 Z" fill="url(#incomeFill)" stroke="#10b981" stroke-width="3" />
+
+                    <!-- Expense Shape -->
+                    <path d="
+                    M0,450
+                    C90,390 180,330 240,330
+                    C300,330 360,420 420,450
+                    C510,450 600,450 690,450
+                    C780,450 870,330 960,330
+                    C1020,330 1080,420 1140,450" fill="url(#expenseFill)" stroke="#6d4df2" stroke-width="3" />
+
+                </svg>
+
+                <!-- X Axis -->
+
+                <div class="x-axis">
+
+                    <span>Mar 1</span>
+                    <span>Mar 2</span>
+                    <span>Mar 3</span>
+                    <span>Mar 4</span>
+                    <span>Mar 5</span>
+                    <span>Mar 6</span>
+                    <span>Mar 7</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="chart-legend">
+
+            <div>
+                <span class="dot income-dot"></span>
+                Income
+            </div>
+
+            <div>
+                <span class="dot expense-dot"></span>
+                Expense
+            </div>
+
+        </div>
+
+    </section>
+    <section class="expense-analysis">
+
+        <!-- Pie Chart -->
+
+        <div class="analysis-card">
+
+            <h2>Expense Breakdown</h2>
+
+            <div class="pie-wrapper">
+
+                <div class="pie-chart">
+
+                    <div class="pie-center">
+                        <img src="{% static 'images/expenseimg.webp' %}" alt="Expense">
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="pie-legends">
+
+                <div class="legend-item food">
+                    <span class="legend-dot"></span>
+                    <span>Food (38%)</span>
+                </div>
+
+                <div class="legend-item shopping">
+                    <span class="legend-dot"></span>
+                    <span>Shopping (28%)</span>
+                </div>
+
+                <div class="legend-item bills">
+                    <span class="legend-dot"></span>
+                    <span>Bills & Utilities (17%)</span>
+                </div>
+
+                <div class="legend-item transport">
+                    <span class="legend-dot"></span>
+                    <span>Transportation (10%)</span>
+                </div>
+
+                <div class="legend-item entertainment">
+                    <span class="legend-dot"></span>
+                    <span>Entertainment (7%)</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Category Details -->
+
+        <div class="analysis-card">
+
+            <h2>Category Details</h2>
+
+            <div class="category-list">
+
+                {% for item in categories %}
+
+                <div class="category-item">
+
+                    <div class="category-top">
+
+                        <div class="category-left">
+
+                            <img src="{{ item.icon.url }}" alt="{{ item.name }}">
+
+                            <span>{{ item.name }}</span>
+
+                        </div>
+
+                        <div class="category-right">
+
+                            <span class="amount">₹{{ item.amount }}</span>
+
+                            <span class="percent">{{ item.percentage }}%</span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div class="progress-fill {{ item.category_type }}" style="--width: {{ item.percentage }}%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </section>
+    <section class="insights-grid">
+
+        <!-- Top Spending -->
+
+        <div class="analysis-card">
+
+            <h2>Top Spending</h2>
+
+            <div class="top-spending-list">
+
+                {% for item in top_spendings %}
+
+                <div class="spending-item">
+
+                    <div class="spending-left">
+
+                        <img src="{{ item.image.url }}" alt="{{ item.name }}">
+
+                        <div class="spending-info">
+
+                            <h4>{{ item.name }}</h4>
+
+                            <span>{{ item.category }}</span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="spending-right">
+
+                        <span class="price">
+                            ₹{{ item.amount }}
+                        </span>
+
+                        <span class="date">
+                            {{ item.spending_date|date:"d M Y" }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        <!-- Smart Insights -->
+
+        <div class="analysis-card">
+
+            <div class="smart-insights-box">
+
+                <h2>
+                    <i class="fa-solid fa-lightbulb"></i>
+                    {{ insights.title }}
+                </h2>
+
+                <ul>
+
+                    {% if insights.point_1 %}
+                    <li>{{ insights.point_1 }}</li>
+                    {% endif %}
+
+                    {% if insights.point_2 %}
+                    <li>{{ insights.point_2 }}</li>
+                    {% endif %}
+
+                    {% if insights.point_3 %}
+                    <li>{{ insights.point_3 }}</li>
+                    {% endif %}
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</section>
+{% endblock %}

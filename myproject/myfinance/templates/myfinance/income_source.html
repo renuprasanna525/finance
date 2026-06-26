@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Income Source</title>
+
+    <link rel="stylesheet" href="{% static 'css/income_source.css' %}">
+
+</head>
+
+<body>
+
+
+    <!-- Main Content -->
+
+    <section class="setup-section">
+        <!-- Logo -->
+
+        <header class="page-header">
+
+            <img src="{% static 'images/vetrilogo.png' %}" alt="Logo" class="logo">
+
+        </header>
+
+        <h1>
+            Let's Set Up Your Finances ⭐
+        </h1>
+
+        <p>
+            Let's Set Up Your Finances
+        </p>
+
+        <div class="income-card">
+
+            <h2>
+                What is your main income source?
+            </h2>
+
+            <div class="income-options">
+
+                <button class="income-btn" data-value="Salary">
+                    Salary
+                </button>
+
+                <button class="income-btn" data-value="Business">
+                    Business
+                </button>
+
+            </div>
+
+            <div class="action-buttons">
+
+                <button class="back-btn">
+                    <a href="{% url 'signup' %}">Back</a>
+                </button>
+
+                <button class="continue-btn" id="continueBtn">
+                    Continue
+                </button>
+
+            </div>
+
+        </div>
+        <footer>
+
+            <p>
+                © 2026 Smart Finance. All rights reserved.
+            </p>
+
+            <div class="footer-links">
+
+                <a href="#">Privacy Policy</a>
+
+                <a href="#">Terms</a>
+
+                <a href="#">Help Center</a>
+
+                <a href="#">Contact</a>
+
+            </div>
+
+        </footer>
+
+
+    </section>
+
+    <script>
+
+        const incomeButtons =
+            document.querySelectorAll('.income-btn');
+
+        const continueBtn =
+            document.getElementById('continueBtn');
+
+        let selectedIncome = '';
+
+        incomeButtons.forEach(button => {
+
+            button.addEventListener('click', () => {
+
+                incomeButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                });
+
+                button.classList.add('active');
+
+                selectedIncome =
+                    button.dataset.value;
+
+            });
+
+        });
+
+        continueBtn.addEventListener('click', () => {
+
+            if (selectedIncome === '') {
+
+                alert(
+                    'Please select your income source before continuing.'
+                );
+
+                return;
+
+            }
+
+            alert(
+                `Selected Income Source: ${selectedIncome}`
+            );
+
+            window.location.href = "{% url 'monthly_income' %}";
+
+        });
+
+    </script>
+</body>
+
+</html>

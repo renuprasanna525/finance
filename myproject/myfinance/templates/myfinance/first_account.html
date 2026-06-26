@@ -1,0 +1,253 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Income Source</title>
+
+    <link rel="stylesheet" href="{% static 'css/first_account.css' %}">
+
+</head>
+
+<body>
+
+
+    <!-- Main Content -->
+
+    <section class="setup-section">
+        <!-- Logo -->
+
+        <header class="page-header">
+
+            <img src="{% static 'images/vetrilogo.png' %}" alt="Logo" class="logo">
+
+        </header>
+
+        <h1>
+            Let's Set Up Your Finances ⭐
+        </h1>
+
+        <p>
+            Let's Set Up Your Finances
+        </p>
+
+        <div class="income-card">
+
+            <h2>
+                Add Your First Account
+            </h2>
+
+            <div class="account-form">
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Type <span>*</span>
+                        </label>
+
+                        <select id="accountType">
+                            <option value="">Select Type</option>
+                            <option value="bank">Bank</option>
+                            <option value="card">Card</option>
+                            <option value="upi">UPI</option>
+                            <option value="wallet">Wallet</option>
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Account Holder Name <span>*</span>
+                        </label>
+
+                        <input type="text" id="holderName">
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Account Type <span>*</span>
+                        </label>
+
+                        <input type="text" id="accountCategory">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Account Number / UPI ID <span>*</span>
+                        </label>
+
+                        <input type="text" id="accountNumber">
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Provider <span>*</span>
+                        </label>
+
+                        <select id="provider">
+                            <option value="">Select Provider</option>
+                            <option value="SBI">SBI</option>
+                            <option value="ICICI">ICICI</option>
+                            <option value="PhonePe">PhonePe</option>
+                            <option value="Paytm">Paytm</option>
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Initial Balance <span>*</span>
+                        </label>
+
+                        <input type="number" id="balance" min="0">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="action-buttons">
+
+                <button class="back-btn">
+                    <a href="{% url 'manage_money' %}">Back</a>
+                </button>
+
+                <button class="skip-btn">
+                    Skip
+                </button>
+
+                <button class="continue-btn" id="continueBtn">
+                    Continue
+                </button>
+
+            </div>
+
+        </div>
+        <footer>
+
+            <p>
+                © 2026 Smart Finance. All rights reserved.
+            </p>
+
+            <div class="footer-links">
+
+                <a href="#">Privacy Policy</a>
+
+                <a href="#">Terms</a>
+
+                <a href="#">Help Center</a>
+
+                <a href="#">Contact</a>
+
+            </div>
+
+        </footer>
+
+
+    </section>
+    <script>
+
+        const continueBtn =
+            document.getElementById('continueBtn');
+
+        const skipBtn =
+            document.querySelector('.skip-btn');
+
+
+        // Continue Button
+
+        continueBtn.addEventListener('click', () => {
+
+            const accountType =
+                document.getElementById('accountType').value;
+
+            const holderName =
+                document.getElementById('holderName').value.trim();
+
+            const accountCategory =
+                document.getElementById('accountCategory').value.trim();
+
+            const accountNumber =
+                document.getElementById('accountNumber').value.trim();
+
+            const provider =
+                document.getElementById('provider').value;
+
+            const balance =
+                document.getElementById('balance').value;
+
+
+            if (
+                accountType === '' ||
+                holderName === '' ||
+                accountCategory === '' ||
+                accountNumber === '' ||
+                provider === '' ||
+                balance === ''
+            ) {
+
+                alert(
+                    'Please fill all required fields.'
+                );
+
+                return;
+            }
+
+            alert(
+                'Account added successfully!'
+            );
+
+            window.location.href =
+                "{% url 'first_budget' %}";
+
+        });
+
+
+        // Skip Button
+
+        skipBtn.addEventListener('click', () => {
+
+            if (
+                confirm(
+                    'Are you sure you want to skip adding an account?'
+                )
+            ) {
+
+                window.location.href =
+                    "{% url 'first_budget' %}";
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>

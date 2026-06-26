@@ -1,0 +1,455 @@
+{% extends 'myfinance/base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/bills.css' %}">
+{% endblock %}
+{% block page_header %}
+
+<header class="topbar">
+
+    <div>
+
+        <h1>Bills</h1>
+
+        <p>Track and manage all your recurring payments</p>
+
+    </div>
+
+    <div class="profile-section">
+
+        <button class="bell-btn">
+            <i class="fa-regular fa-bell"></i>
+        </button>
+
+        <img src="{% static 'images/lillyprofile.png' %}" alt="">
+
+        <span>Lilly</span>
+
+    </div>
+
+</header>
+
+{% endblock %}
+{% block content %}
+<section class="page-content">
+    <section class="summary-grid">
+
+        {% for item in summaries %}
+
+        <div class="bill-card {{ item.color }}">
+
+            <div class="card-header">
+
+                <div class="card-content">
+
+                    <h3>{{ item.title }}</h3>
+
+                    <h2>{{ item.amount }}</h2>
+
+                    <span>{{ item.subtitle }}</span>
+
+                </div>
+
+                <div class="icon-box">
+                    <i class="{{ item.icon }}"></i>
+                </div>
+
+            </div>
+
+            <div class="wave-group">
+
+                <div class="wave wave-1"></div>
+
+                <div class="wave wave-2"></div>
+
+                <div class="wave wave-3"></div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </section>
+    <section class="bills-list-section">
+
+        <div class="section-header">
+
+            <h2>Your Bills</h2>
+
+            <a href="#" class="add-bill-btn" id="openBillModal">
+                + Add New Bill
+            </a>
+
+
+            <!-- Add Bill Modal -->
+
+            <div class="modal-overlay" id="billModal">
+
+                <div class="bill-modal">
+
+                    <div class="modal-header">
+
+                        <h2>Add New Bill</h2>
+
+                        <button type="button" class="close-btn" id="closeBillModal">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+
+                    </div>
+
+
+                    <form id="billForm" novalidate>
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label>Bill Name</label>
+
+                                <select id="billName" required>
+
+                                    <option value="">Select Bill</option>
+
+                                    <option>Electricity Bill (TNEB)</option>
+
+                                    <option>Gas</option>
+
+                                    <option>Internet</option>
+
+                                    <option>Mobile Recharge</option>
+
+                                    <option>Other</option>
+
+                                </select>
+
+                                <small class="error"></small>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Bill ID / Customer Number</label>
+
+                                <input type="text" id="billNumber" placeholder="Enter Bill ID" required>
+
+                                <small class="error"></small>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Account Holder Name</label>
+
+                                <input type="text" id="accountName" placeholder="Enter account holder name" required>
+
+                                <small class="error"></small>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Last Recharge</label>
+
+                                <input type="date" id="lastRecharge" required>
+
+                                <small class="error"></small>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Due Date</label>
+
+                                <input type="date" id="dueDate" required>
+
+                                <small class="error"></small>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Amount</label>
+
+                                <input type="number" id="billAmount" min="1" placeholder="Enter amount" required>
+
+                                <small class="error"></small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="modal-footer">
+
+                            <button type="button" class="back-btn" id="cancelBillBtn">
+
+                                Back
+
+                            </button>
+
+
+                            <button type="submit" class="save-btn">
+
+                                Add Bill
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="bills-list">
+
+            {% for bill in bills_list %}
+
+            <div class="bill-item">
+
+                <div class="bill-left">
+
+                    {% if bill.icon %}
+                    <img src="{{ bill.icon.url }}" alt="{{ bill.title }}">
+                    {% else %}
+                    <img src="{% static 'images/default-bill.png' %}" alt="">
+                    {% endif %}
+
+                    <div class="bill-details">
+
+                        <div class="bill-title-row">
+
+                            <h3>{{ bill.title }}</h3>
+
+                            {% if bill.title == "Mobile Recharge" %}
+
+                            <span class="status-badge expired">
+                                Expired
+                            </span>
+
+                            {% elif bill.status == "Paid" %}
+
+                            <span class="status-badge paid">
+                                Paid
+                            </span>
+
+                            {% else %}
+
+                            <span class="status-badge pending">
+                                Pending
+                            </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        {% if bill.title == "Mobile Recharge" %}
+
+                        <span>
+                            No. {{ bill.bill_number }}
+                        </span>
+
+                        {% else %}
+
+                        <span>
+                            ID - {{ bill.bill_number }}
+                        </span>
+
+                        {% endif %}
+
+
+                        <span>
+                            Due: {{ bill.due_date|date:"d M Y" }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="bill-right">
+
+                    <h3>
+                        ₹{{ bill.amount }}
+                    </h3>
+
+
+                    {% if bill.status == "Pending" %}
+
+                    <a href="#" class="pay-btn">
+                        Pay Now
+                    </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="empty-bills">
+
+                <h3>No Bills Found</h3>
+
+                <p>Add your first bill from the button above.</p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+</section>
+<script>
+    // Add bill logics
+    const billModal = document.getElementById("billModal");
+
+
+    document.getElementById("openBillModal")
+        .addEventListener("click", function (e) {
+
+            e.preventDefault();
+
+            billModal.classList.add("show");
+
+            document.body.style.overflow = "hidden";
+
+        });
+
+
+    function closeBillModal() {
+
+        billModal.classList.remove("show");
+
+        document.body.style.overflow = "";
+
+    }
+
+
+    document.getElementById("closeBillModal")
+        .addEventListener("click", closeBillModal);
+
+
+    document.getElementById("cancelBillBtn")
+        .addEventListener("click", closeBillModal);
+
+
+    window.addEventListener("click", function (e) {
+
+        if (e.target === billModal) {
+
+            closeBillModal();
+
+        }
+
+    });
+
+
+    document.getElementById("billForm")
+        .addEventListener("submit", function (e) {
+
+            e.preventDefault();
+
+            let valid = true;
+
+            document.querySelectorAll("#billForm .error")
+                .forEach(error => {
+
+                    error.textContent = "";
+
+                });
+
+
+            const billName = document.getElementById("billName");
+
+            const billNumber = document.getElementById("billNumber");
+
+            const accountName = document.getElementById("accountName");
+
+            const lastRecharge = document.getElementById("lastRecharge");
+
+            const dueDate = document.getElementById("dueDate");
+
+            const amount = document.getElementById("billAmount");
+
+
+            if (billName.value === "") {
+
+                billName.nextElementSibling.textContent =
+                    "Please select bill type";
+
+                valid = false;
+            }
+
+
+            if (billNumber.value.trim() === "") {
+
+                billNumber.nextElementSibling.textContent =
+                    "Bill ID is required";
+
+                valid = false;
+            }
+
+
+            if (accountName.value.trim() === "") {
+
+                accountName.nextElementSibling.textContent =
+                    "Account holder name is required";
+
+                valid = false;
+            }
+
+
+            if (lastRecharge.value === "") {
+
+                lastRecharge.nextElementSibling.textContent =
+                    "Please select last recharge date";
+
+                valid = false;
+            }
+
+
+            if (dueDate.value === "") {
+
+                dueDate.nextElementSibling.textContent =
+                    "Please select due date";
+
+                valid = false;
+            }
+
+
+            if (amount.value.trim() === "" ||
+                Number(amount.value) <= 0) {
+
+                amount.nextElementSibling.textContent =
+                    "Enter valid amount";
+
+                valid = false;
+            }
+
+
+            if (valid) {
+
+                alert("Bill created successfully!");
+
+                this.reset();
+
+                closeBillModal();
+            }
+
+        });
+
+</script>
+{% endblock %}

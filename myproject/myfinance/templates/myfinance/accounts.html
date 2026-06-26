@@ -1,0 +1,646 @@
+{% extends 'myfinance/base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+{% endblock %}
+{% block page_header %}
+
+<header class="topbar">
+
+    <div>
+
+        <h1>Accounts</h1>
+
+        <p>Manage your bank, wallet and payment methods</p>
+
+    </div>
+
+    <div class="profile-section">
+
+        <button class="bell-btn">
+            <i class="fa-regular fa-bell"></i>
+        </button>
+
+        <img src="{% static 'images/lillyprofile.png' %}" alt="">
+
+        <span>Lilly</span>
+
+    </div>
+
+</header>
+{% endblock %}
+{% block content %}
+<section class="page-content">
+    <section class="summary-grid">
+
+        {% for item in summaries %}
+
+        <div class="summary-card {{ item.color }}">
+
+            <div class="card-top">
+
+                <h3>{{ item.title }}</h3>
+
+                <div class="icon-box">
+                    <i class="{{ item.icon }}"></i>
+                </div>
+
+            </div>
+
+            <h2>₹ {{ item.amount }}</h2>
+
+            <span>{{ item.subtitle }}</span>
+
+            <div class="wave"></div>
+
+        </div>
+
+        {% endfor %}
+
+    </section>
+    {% for section in account_sections %}
+
+    <section class="bank-section">
+
+        <div class="bank-header">
+
+            <div class="header-left">
+
+                <h2>
+                    <i class="{{ section.icon }}"></i>
+                    {{ section.title }}
+                </h2>
+
+            </div>
+
+            <button class="add-account-btn" id="openAccountModal">
+                <i class="fa-solid fa-plus"></i>
+                Add New Account
+            </button>
+            <!-- Add Account Modal -->
+
+            <div class="modal-overlay" id="accountModal">
+
+                <div class="account-modal">
+
+                    <div class="modal-header">
+
+                        <h2>Add New Account</h2>
+
+                        <button type="button" class="close-modal" id="closeAccountModal">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+
+                    </div>
+
+                    <form id="accountForm">
+
+                        <div class="form-grid">
+
+                            <!-- Type -->
+                            <div class="form-group">
+
+                                <label for="type">
+                                    Type <span>*</span>
+                                </label>
+
+                                <select id="type" required>
+                                    <option value="">Select Type</option>
+                                    <option value="bank">Bank</option>
+                                    <option value="card">Card</option>
+                                    <option value="upi">UPI</option>
+                                    <option value="wallet">Wallet</option>
+                                </select>
+
+                            </div>
+
+                            <!-- Account Holder Name -->
+                            <div class="form-group">
+
+                                <label for="holderName">
+                                    Account Holder Name <span>*</span>
+                                </label>
+
+                                <input type="text" id="holderName" placeholder="Enter account holder name" required>
+
+                            </div>
+
+                            <!-- Account Type -->
+                            <div class="form-group">
+
+                                <label for="accountType">
+                                    Account Type <span>*</span>
+                                </label>
+
+                                <input type="text" id="accountType" placeholder="Savings Account" required>
+
+                            </div>
+
+                            <!-- Account Number / UPI ID -->
+                            <div class="form-group">
+
+                                <label for="accountNumber">
+                                    Account Number / UPI ID <span>*</span>
+                                </label>
+
+                                <input type="text" id="accountNumber" placeholder="XXXXXXXX12 / user@upi" required>
+
+                            </div>
+
+                            <!-- Provider -->
+                            <div class="form-group">
+
+                                <label for="provider">
+                                    Provider <span>*</span>
+                                </label>
+
+                                <select id="provider" required>
+
+                                    <option value="">Select Provider</option>
+
+                                    <option value="SBI">SBI</option>
+
+                                    <option value="ICICI">ICICI</option>
+
+                                    <option value="PhonePe">PhonePe</option>
+
+                                    <option value="Paytm">Paytm</option>
+
+                                </select>
+
+                            </div>
+
+                            <!-- Initial Balance -->
+                            <div class="form-group">
+
+                                <label for="balance">
+                                    Initial Balance <span>*</span>
+                                </label>
+
+                                <input type="number" id="balance" min="0" placeholder="Enter balance" required>
+
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <button type="button" class="back-btn" id="cancelAccount">
+
+                                Back
+
+                            </button>
+
+                            <button type="submit" class="submit-btn">
+
+                                Add Account
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="bank-account-list">
+
+            {% for account in section.accounts %}
+
+            <div class="bank-card">
+
+                <div class="bank-left">
+
+                    <img src="{{ account.image.url }}" alt="{{ account.bank_name }}">
+
+                    <div class="bank-info">
+
+                        <h4>
+                            {{ account.bank_name }}
+                        </h4>
+
+                        <p>
+                            {{ account.account_type }}
+                        </p>
+
+                        <span>
+                            ID: {{ account.account_id }}
+                        </span>
+
+                        <h3>
+                            ₹{{ account.balance }}
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div class="bank-right">
+
+                    <div class="bank-actions">
+
+                        <button class="edit-account-btn">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <!-- Edit Account Modal -->
+
+                        <div class="modal-overlay" id="editAccountModal">
+
+                            <div class="account-modal">
+
+                                <div class="modal-header">
+
+                                    <h2>Edit Account</h2>
+
+                                    <button type="button" class="close-modal" id="closeEditAccountModal">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+
+                                </div>
+
+                                <form id="editAccountForm" class="edit-form">
+
+                                    <div class="form-grid">
+
+                                        <div class="form-group">
+
+                                            <label>
+                                                Type <span>*</span>
+                                            </label>
+
+                                            <select id="editType" required>
+                                                <option value="">Select Type</option>
+                                                <option value="bank">Bank</option>
+                                                <option value="card">Card</option>
+                                                <option value="upi">UPI</option>
+                                                <option value="wallet">Wallet</option>
+                                            </select>
+
+                                        </div>
+
+
+                                        <div class="form-group">
+
+                                            <label>
+                                                Account Holder Name <span>*</span>
+                                            </label>
+
+                                            <input type="text" id="editHolderName" required>
+
+                                        </div>
+
+
+                                        <div class="form-group">
+
+                                            <label>
+                                                Account Type <span>*</span>
+                                            </label>
+
+                                            <input type="text" id="editAccountType" required>
+
+                                        </div>
+
+
+                                        <div class="form-group">
+
+                                            <label>
+                                                Account Number / UPI ID <span>*</span>
+                                            </label>
+
+                                            <input type="text" id="editAccountNumber" required>
+
+                                        </div>
+
+
+                                        <div class="form-group">
+
+                                            <label>
+                                                Provider <span>*</span>
+                                            </label>
+
+                                            <select id="editProvider" required>
+
+                                                <option value="">Select Provider</option>
+
+                                                <option value="SBI">SBI</option>
+
+                                                <option value="ICICI">ICICI</option>
+
+                                                <option value="PhonePe">PhonePe</option>
+
+                                                <option value="Paytm">Paytm</option>
+
+                                            </select>
+
+                                        </div>
+
+
+                                        <div class="form-group">
+
+                                            <label>
+                                                Initial Balance <span>*</span>
+                                            </label>
+
+                                            <input type="number" id="editBalance" min="0" required>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="modal-footer">
+
+                                        <button type="button" class="back-btn" id="cancelEditAccount">
+
+                                            Back
+
+                                        </button>
+
+
+                                        <button type="submit" class="submit-btn">
+
+                                            Save Account
+
+                                        </button>
+
+                                    </div>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                        <form action="{% url 'delete_account' account.id %}" method="POST" style="display:inline;">
+
+                            {% csrf_token %}
+
+                            <button type="submit" class="delete-btn"
+                                onclick="return confirm('Are you sure you want to delete this account?');">
+
+                                <i class="fa-regular fa-trash-can"></i>
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="bank-card">
+
+                <p>No accounts added.</p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+    {% endfor %}
+</section>
+<script>
+    // Add New Account
+    const accountModal =
+        document.getElementById("accountModal");
+
+    const openAccountModal =
+        document.getElementById("openAccountModal");
+
+    const closeAccountModal =
+        document.getElementById("closeAccountModal");
+
+    const cancelAccount =
+        document.getElementById("cancelAccount");
+
+    const accountForm =
+        document.getElementById("accountForm");
+
+
+    openAccountModal.addEventListener("click", function () {
+
+        accountModal.classList.add("active");
+
+    });
+
+
+    function hideAccountModal() {
+
+        accountModal.classList.remove("active");
+
+    }
+
+
+    closeAccountModal.addEventListener(
+        "click",
+        hideAccountModal
+    );
+
+    cancelAccount.addEventListener(
+        "click",
+        hideAccountModal
+    );
+
+
+    accountModal.addEventListener("click", function (e) {
+
+        if (e.target === accountModal) {
+
+            hideAccountModal();
+
+        }
+
+    });
+
+
+    accountForm.addEventListener("submit", function (e) {
+
+        e.preventDefault();
+
+        const type =
+            document.getElementById("type").value;
+
+        const holderName =
+            document.getElementById("holderName").value.trim();
+
+        const accountType =
+            document.getElementById("accountType").value.trim();
+
+        const accountNumber =
+            document.getElementById("accountNumber").value.trim();
+
+        const provider =
+            document.getElementById("provider").value;
+
+        const balance =
+            document.getElementById("balance").value;
+
+
+        if (
+            !type ||
+            !holderName ||
+            !accountType ||
+            !accountNumber ||
+            !provider ||
+            !balance
+        ) {
+            alert("Please fill all required fields.");
+            return;
+        }
+
+
+        if (Number(balance) < 0) {
+
+            alert("Balance cannot be negative.");
+
+            return;
+        }
+
+
+        alert("Account added successfully.");
+
+        accountForm.reset();
+
+        hideAccountModal();
+
+    });
+
+    // Edit the account
+    const editAccountModal =
+        document.getElementById("editAccountModal");
+
+    const closeEditAccountModal =
+        document.getElementById("closeEditAccountModal");
+
+    const cancelEditAccount =
+        document.getElementById("cancelEditAccount");
+
+    const editAccountForm =
+        document.getElementById("editAccountForm");
+
+
+    document.querySelectorAll(".edit-account-btn")
+        .forEach(button => {
+
+            button.addEventListener("click", function () {
+
+                /* Sample existing values */
+
+                document.getElementById("editType").value =
+                    "bank";
+
+                document.getElementById("editHolderName").value =
+                    "Prasanna";
+
+                document.getElementById("editAccountType").value =
+                    "Savings Account";
+
+                document.getElementById("editAccountNumber").value =
+                    "XXXXXXXX12";
+
+                document.getElementById("editProvider").value =
+                    "SBI";
+
+                document.getElementById("editBalance").value =
+                    "85000";
+
+                editAccountModal.classList.add("active");
+
+            });
+
+        });
+
+
+    function hideEditAccountModal() {
+
+        editAccountModal.classList.remove("active");
+
+    }
+
+
+    closeEditAccountModal.addEventListener(
+        "click",
+        hideEditAccountModal
+    );
+
+    cancelEditAccount.addEventListener(
+        "click",
+        hideEditAccountModal
+    );
+
+
+    editAccountModal.addEventListener("click", function (e) {
+
+        if (e.target === editAccountModal) {
+
+            hideEditAccountModal();
+
+        }
+
+    });
+
+
+    editAccountForm.addEventListener("submit", function (e) {
+
+        e.preventDefault();
+
+        const type =
+            document.getElementById("editType").value;
+
+        const holderName =
+            document.getElementById("editHolderName").value.trim();
+
+        const accountType =
+            document.getElementById("editAccountType").value.trim();
+
+        const accountNumber =
+            document.getElementById("editAccountNumber").value.trim();
+
+        const provider =
+            document.getElementById("editProvider").value;
+
+        const balance =
+            document.getElementById("editBalance").value;
+
+
+        if (
+            !type ||
+            !holderName ||
+            !accountType ||
+            !accountNumber ||
+            !provider ||
+            !balance
+        ) {
+            alert("Please fill all required fields.");
+            return;
+        }
+
+
+        if (Number(balance) < 0) {
+
+            alert("Balance cannot be negative.");
+
+            return;
+        }
+
+
+        alert("Account updated successfully.");
+
+        hideEditAccountModal();
+
+    });
+
+</script>
+{% endblock %}

@@ -1,0 +1,294 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Income Source</title>
+
+    <link rel="stylesheet" href="{% static 'css/first_budget.css' %}">
+
+</head>
+
+<body>
+
+
+    <!-- Main Content -->
+
+    <section class="setup-section">
+        <!-- Logo -->
+
+        <header class="page-header">
+
+            <img src="{% static 'images/vetrilogo.png' %}" alt="Logo" class="logo">
+
+        </header>
+
+        <h1>
+            Let's Set Up Your Finances ⭐
+        </h1>
+
+        <p>
+            Let's Set Up Your Finances
+        </p>
+
+        <div class="income-card">
+
+            <h2>
+                Create Your First Budget
+            </h2>
+
+            <div class="budget-form">
+
+                <!-- Row 1 -->
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="category">
+                            Category <span>*</span>
+                        </label>
+
+                        <select id="category">
+
+                            <option value="">
+                                Select Category
+                            </option>
+
+                            <option>Food</option>
+
+                            <option>Transport</option>
+
+                            <option>Shopping</option>
+
+                            <option>Entertainment</option>
+
+                            <option>Bills</option>
+
+                            <option>Healthcare</option>
+
+                            <option>Others</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="amount">
+                            Budget Amount <span>*</span>
+                        </label>
+
+                        <input type="number" id="amount" placeholder="Enter Amount" min="1">
+
+                    </div>
+
+                </div>
+
+
+                <!-- Row 2 -->
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="startDate">
+                            Start Date <span>*</span>
+                        </label>
+
+                        <input type="date" id="startDate">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="endDate">
+                            End Date <span>*</span>
+                        </label>
+
+                        <input type="date" id="endDate">
+
+                    </div>
+
+                </div>
+
+
+                <!-- Full Width -->
+
+                <div class="form-group full-width">
+
+                    <label for="alert">
+                        Alert me when I reach
+                    </label>
+
+                    <select id="alert">
+
+                        <option value="">
+                            Select Alert
+                        </option>
+
+                        <option value="50">
+                            50%
+                        </option>
+
+                        <option value="70">
+                            70%
+                        </option>
+
+                        <option value="80">
+                            80%
+                        </option>
+
+                        <option value="90">
+                            90%
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="action-buttons">
+
+                <button class="back-btn">
+                    <a href="{% url 'first_account' %}">Back</a>
+                </button>
+
+                <button class="skip-btn">
+                    Skip
+                </button>
+
+                <button class="continue-btn" id="continueBtn">
+                    Continue
+                </button>
+
+            </div>
+
+        </div>
+        <footer>
+
+            <p>
+                © 2026 Smart Finance. All rights reserved.
+            </p>
+
+            <div class="footer-links">
+
+                <a href="#">Privacy Policy</a>
+
+                <a href="#">Terms</a>
+
+                <a href="#">Help Center</a>
+
+                <a href="#">Contact</a>
+
+            </div>
+
+        </footer>
+
+
+    </section>
+
+    <script>
+
+        const continueBtn =
+            document.getElementById('continueBtn');
+
+        const skipBtn =
+            document.querySelector('.skip-btn');
+
+
+        continueBtn.addEventListener('click', () => {
+
+            const category =
+                document.getElementById('category').value;
+
+            const amount =
+                document.getElementById('amount').value;
+
+            const startDate =
+                document.getElementById('startDate').value;
+
+            const endDate =
+                document.getElementById('endDate').value;
+
+
+            if (category === '') {
+
+                alert(
+                    'Please select a category.'
+                );
+
+                return;
+            }
+
+            if (amount === '' || Number(amount) <= 0) {
+
+                alert(
+                    'Please enter a valid budget amount.'
+                );
+
+                return;
+            }
+
+            if (startDate === '') {
+
+                alert(
+                    'Please select a start date.'
+                );
+
+                return;
+            }
+
+            if (endDate === '') {
+
+                alert(
+                    'Please select an end date.'
+                );
+
+                return;
+            }
+
+            if (new Date(endDate) < new Date(startDate)) {
+
+                alert(
+                    'End date cannot be earlier than start date.'
+                );
+
+                return;
+            }
+
+            alert(
+                'Budget created successfully!'
+            );
+
+            window.location.href =
+                "{% url 'first_bill' %}";
+
+        });
+        // Skip Button
+
+        skipBtn.addEventListener('click', () => {
+
+            if (
+                confirm(
+                    'Are you sure you want to skip adding an account?'
+                )
+            ) {
+
+                window.location.href =
+                    "{% url 'first_bill' %}";
+
+            }
+
+        });
+
+    </script>
+</body>
+
+</html>

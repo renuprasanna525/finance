@@ -1,0 +1,270 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Income Source</title>
+
+    <link rel="stylesheet" href="{% static 'css/first_bill.css' %}">
+
+</head>
+
+<body>
+
+
+    <!-- Main Content -->
+
+    <section class="setup-section">
+        <!-- Logo -->
+
+        <header class="page-header">
+
+            <img src="{% static 'images/vetrilogo.png' %}" alt="Logo" class="logo">
+
+        </header>
+
+        <h1>
+            Let's Set Up Your Finances ⭐
+        </h1>
+
+        <p>
+            Let's Set Up Your Finances
+        </p>
+
+        <div class="income-card">
+
+            <h2>
+                Create Your First Bill
+            </h2>
+
+            <div class="bill-form">
+
+                <!-- Row 1 -->
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Bill Name <span>*</span>
+                        </label>
+
+                        <select id="billName">
+
+                            <option value="">
+                                Select Bill
+                            </option>
+
+                            <option>
+                                Electricity Bill (TNEB)
+                            </option>
+
+                            <option>
+                                Gas
+                            </option>
+
+                            <option>
+                                Internet
+                            </option>
+
+                            <option>
+                                Mobile Recharge
+                            </option>
+
+                            <option>
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Bill ID / Customer Number <span>*</span>
+                        </label>
+
+                        <input type="text" id="billNumber" placeholder="Enter Bill ID">
+
+                    </div>
+
+                </div>
+
+
+                <!-- Row 2 -->
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Account Holder Name <span>*</span>
+                        </label>
+
+                        <input type="text" id="accountName" placeholder="Enter Account Holder Name">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Last Recharge <span>*</span>
+                        </label>
+
+                        <input type="date" id="lastRecharge">
+
+                    </div>
+
+                </div>
+
+
+                <!-- Row 3 -->
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Due Date <span>*</span>
+                        </label>
+
+                        <input type="date" id="dueDate">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Amount <span>*</span>
+                        </label>
+
+                        <input type="number" id="billAmount" min="1" placeholder="Enter Amount">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="action-buttons">
+
+                <button class="back-btn">
+                    <a href="{% url 'first_budget' %}">Back</a>
+                </button>
+
+                <button class="continue-btn" id="finishBtn">
+                    Finish
+                </button>
+
+            </div>
+        </div>
+        <footer>
+
+            <p>
+                © 2026 Smart Finance. All rights reserved.
+            </p>
+
+            <div class="footer-links">
+
+                <a href="#">Privacy Policy</a>
+
+                <a href="#">Terms</a>
+
+                <a href="#">Help Center</a>
+
+                <a href="#">Contact</a>
+
+            </div>
+
+        </footer>
+
+
+    </section>
+    <script>
+
+        const finishBtn =
+            document.getElementById('finishBtn');
+
+        finishBtn.addEventListener('click', () => {
+
+            const billName =
+                document.getElementById('billName').value;
+
+            const billNumber =
+                document.getElementById('billNumber').value.trim();
+
+            const accountName =
+                document.getElementById('accountName').value.trim();
+
+            const lastRecharge =
+                document.getElementById('lastRecharge').value;
+
+            const dueDate =
+                document.getElementById('dueDate').value;
+
+            const amount =
+                document.getElementById('billAmount').value;
+
+
+            if (billName === '') {
+
+                alert('Please select a bill name.');
+
+                return;
+            }
+
+            if (billNumber === '') {
+
+                alert('Please enter bill ID / customer number.');
+
+                return;
+            }
+
+            if (accountName === '') {
+
+                alert('Please enter account holder name.');
+
+                return;
+            }
+
+            if (lastRecharge === '') {
+
+                alert('Please select last recharge date.');
+
+                return;
+            }
+
+            if (dueDate === '') {
+
+                alert('Please select due date.');
+
+                return;
+            }
+
+            if (amount === '' || Number(amount) <= 0) {
+
+                alert('Please enter a valid amount.');
+
+                return;
+            }
+
+            alert(
+                'Setup completed successfully!'
+            );
+
+            window.location.href =
+                "{% url 'dashboard' %}";
+
+        });
+
+    </script>
+
+</body>
+
+</html>

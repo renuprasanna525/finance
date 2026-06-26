@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Income Source</title>
+
+    <link rel="stylesheet" href="{% static 'css/monthly_income.css' %}">
+
+</head>
+
+<body>
+
+
+    <!-- Main Content -->
+
+    <section class="setup-section">
+        <!-- Logo -->
+
+        <header class="page-header">
+
+            <img src="{% static 'images/vetrilogo.png' %}" alt="Logo" class="logo">
+
+        </header>
+
+        <h1>
+            Let's Set Up Your Finances ⭐
+        </h1>
+
+        <p>
+            Let's Set Up Your Finances
+        </p>
+
+        <div class="income-card">
+
+            <h2>
+                What is your monthly income?
+            </h2>
+
+            <div class="income-form">
+
+                <label>
+                    Monthly Salary
+                </label>
+
+                <div class="salary-input">
+
+                    <span>₹</span>
+
+                    <input type="number" id="monthlyIncome" placeholder="Enter Monthly Income">
+
+                </div>
+
+            </div>
+
+            <div class="action-buttons">
+
+                <button class="back-btn">
+                    <a href="{% url 'income_source' %}">Back</a>
+                </button>
+
+                <button class="continue-btn" id="continueBtn">
+                    Continue
+                </button>
+
+            </div>
+
+        </div>
+        <footer>
+
+            <p>
+                © 2026 Smart Finance. All rights reserved.
+            </p>
+
+            <div class="footer-links">
+
+                <a href="#">Privacy Policy</a>
+
+                <a href="#">Terms</a>
+
+                <a href="#">Help Center</a>
+
+                <a href="#">Contact</a>
+
+            </div>
+
+        </footer>
+
+
+    </section>
+    <script>
+
+        const continueBtn =
+            document.getElementById('continueBtn');
+
+        continueBtn.addEventListener('click', () => {
+
+            const income =
+                document.getElementById(
+                    'monthlyIncome'
+                ).value.trim();
+
+            if (income === '') {
+
+                alert(
+                    'Please enter your monthly income.'
+                );
+
+                return;
+            }
+
+            if (parseInt(income) <= 0) {
+
+                alert(
+                    'Please enter a valid income amount.'
+                );
+
+                return;
+            }
+
+            alert(
+                'Monthly income saved successfully!'
+            );
+
+            window.location.href = "{% url 'manage_money' %}";
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,621 @@
+{% extends 'myfinance/base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/budgets.css' %}">
+{% endblock %}
+{% block page_header %}
+
+<header class="topbar">
+
+    <div>
+
+        <h1>Budgets</h1>
+
+        <p>Set and track spending limits</p>
+
+    </div>
+
+    <div class="profile-section">
+
+        <button class="bell-btn">
+            <i class="fa-regular fa-bell"></i>
+        </button>
+
+        <img src="{% static 'images/lillyprofile.png' %}" alt="">
+
+        <span>Lilly</span>
+
+    </div>
+
+</header>
+{% endblock %}
+{% block content %}
+
+<section class="page-content">
+
+    <div class="budget-header">
+
+        <button class="add-budget-btn" id="openBudgetModal">
+            <i class="fa-solid fa-plus"></i>
+            Add New Budget
+        </button>
+        <!-- Modal Overlay -->
+        <div class="modal-overlay" id="budgetModal">
+
+            <div class="budget-modal">
+
+                <div class="modal-header">
+                    <h2>Add New Budget</h2>
+
+                    <button class="close-modal" id="closeBudgetModal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <form id="budgetForm">
+
+                    <div class="form-grid">
+
+                        <!-- Category -->
+                        <div class="form-group">
+
+                            <label for="category">
+                                Category <span>*</span>
+                            </label>
+
+                            <select id="category" required>
+                                <option value="">Select Category</option>
+                                <option>Food</option>
+                                <option>Transport</option>
+                                <option>Shopping</option>
+                                <option>Entertainment</option>
+                                <option>Bills</option>
+                                <option>Healthcare</option>
+                                <option>Others</option>
+                            </select>
+
+                        </div>
+
+
+                        <!-- Budget Amount -->
+
+                        <div class="form-group">
+
+                            <label for="amount">
+                                Budget Amount <span>*</span>
+                            </label>
+
+                            <input type="number" id="amount" placeholder="Enter amount" min="1" required>
+
+                        </div>
+
+
+                        <!-- Start Date -->
+
+                        <div class="form-group">
+
+                            <label for="startDate">
+                                Start Date <span>*</span>
+                            </label>
+
+                            <input type="date" id="startDate" required>
+
+                        </div>
+
+
+                        <!-- End Date -->
+
+                        <div class="form-group">
+
+                            <label for="endDate">
+                                End Date <span>*</span>
+                            </label>
+
+                            <input type="date" id="endDate" required>
+
+                        </div>
+
+
+                        <!-- Alert -->
+
+                        <div class="form-group full-width">
+
+                            <label for="alert">
+                                Alert me when I reach
+                            </label>
+
+                            <select id="alert">
+
+                                <option value="">Select Alert</option>
+
+                                <option value="50">50%</option>
+
+                                <option value="70">70%</option>
+
+                                <option value="80">80%</option>
+
+                                <option value="90">90%</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Footer -->
+
+                    <div class="modal-footer">
+
+                        <button type="button" class="back-btn" id="cancelBudget">
+
+                            Back
+
+                        </button>
+
+
+                        <button type="submit" class="submit-btn">
+
+                            Add Budget
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="budget-list">
+
+        {% for budget in budgets %}
+
+        <div class="budget-card">
+
+            <!-- Top Row -->
+
+            <div class="budget-top">
+
+                <div class="budget-left">
+
+                    <img src="{{ budget.image.url }}" alt="{{ budget.name }}">
+
+                    <div class="budget-info">
+
+                        <h3>{{ budget.name }}</h3>
+
+                        <span>
+                            {{ budget.start_date|date:"d/m/Y" }} -
+                            {{ budget.end_date|date:"d/m/Y" }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="budget-actions">
+
+                    <button class="edit-budget-btn">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <!-- Edit Budget Modal -->
+
+                    <div class="modal-overlay" id="editBudgetModal">
+
+                        <div class="budget-modal">
+
+                            <div class="modal-header">
+
+                                <h2>Edit Budget</h2>
+
+                                <button class="close-modal" id="closeEditModal">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+
+                            </div>
+
+
+                            <form id="editBudgetForm">
+
+                                <div class="form-grid">
+
+                                    <!-- Category -->
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Category <span>*</span>
+                                        </label>
+
+                                        <select id="editCategory" required>
+
+                                            <option value="">Select Category</option>
+
+                                            <option>Food</option>
+
+                                            <option>Transport</option>
+
+                                            <option>Shopping</option>
+
+                                            <option>Entertainment</option>
+
+                                            <option>Bills</option>
+
+                                            <option>Healthcare</option>
+
+                                            <option>Others</option>
+
+                                        </select>
+
+                                    </div>
+
+
+                                    <!-- Amount -->
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Budget Amount <span>*</span>
+                                        </label>
+
+                                        <input type="number" id="editAmount" min="1" required>
+
+                                    </div>
+
+
+                                    <!-- Start Date -->
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Start Date <span>*</span>
+                                        </label>
+
+                                        <input type="date" id="editStartDate" required>
+
+                                    </div>
+
+
+                                    <!-- End Date -->
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            End Date <span>*</span>
+                                        </label>
+
+                                        <input type="date" id="editEndDate" required>
+
+                                    </div>
+
+
+                                    <!-- Alert -->
+
+                                    <div class="form-group full-width">
+
+                                        <label>
+                                            Alert me when I reach
+                                        </label>
+
+                                        <select id="editAlert">
+
+                                            <option value="">Select Alert</option>
+
+                                            <option value="50">50%</option>
+
+                                            <option value="70">70%</option>
+
+                                            <option value="80">80%</option>
+
+                                            <option value="90">90%</option>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="modal-footer">
+
+                                    <button type="button" class="back-btn" id="cancelEditBudget">
+
+                                        Back
+
+                                    </button>
+
+
+                                    <button type="submit" class="submit-btn">
+
+                                        Save Budget
+
+                                    </button>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                    <form action="{% url 'delete_budget' budget.id %}" method="POST" style="display:inline;">
+
+                        {% csrf_token %}
+
+                        <button type="submit" class="delete-btn"
+                            onclick="return confirm('Are you sure you want to delete this budget?');">
+
+                            <i class="fa-regular fa-trash-can"></i>
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <!-- Amount -->
+
+            <div class="budget-amount-row">
+
+                <span>
+                    Spent:
+                    ₹{{ budget.spent }}
+                </span>
+
+                <span>
+                    Limit:
+                    ₹{{ budget.limit }}
+                </span>
+
+            </div>
+
+
+            <!-- Progress -->
+
+            <div class="progress-bar">
+
+                <div class="progress-fill {{ budget.progress_class }} {{ budget.progress_width }}">
+                </div>
+
+            </div>
+
+            <!-- Bottom -->
+
+            <div class="budget-bottom">
+
+                <span>
+                    {{ budget.used_percentage }}% used
+                </span>
+
+
+                {% if budget.status == "near_limit" %}
+
+                <span class="status-badge">
+
+                    <i class="fa-solid fa-exclamation"></i>
+
+                    Near Limit
+
+                </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="remaining">
+
+                Remaining:
+
+                <span>
+                    ₹{{ budget.remaining }}
+                </span>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+<script>
+    // Add New Budget
+    const modal = document.getElementById("budgetModal");
+
+    const openBtn = document.getElementById("openBudgetModal");
+
+    const closeBtn = document.getElementById("closeBudgetModal");
+
+    const cancelBtn = document.getElementById("cancelBudget");
+
+    const form = document.getElementById("budgetForm");
+
+
+    openBtn.addEventListener("click", () => {
+        modal.classList.add("active");
+    });
+
+
+    function closeModal() {
+        modal.classList.remove("active");
+    }
+
+    closeBtn.addEventListener("click", closeModal);
+
+    cancelBtn.addEventListener("click", closeModal);
+
+
+    modal.addEventListener("click", (e) => {
+
+        if (e.target === modal) {
+            closeModal();
+        }
+
+    });
+
+
+    form.addEventListener("submit", function (e) {
+
+        e.preventDefault();
+
+        const category = document.getElementById("category").value;
+
+        const amount = document.getElementById("amount").value;
+
+        const startDate = document.getElementById("startDate").value;
+
+        const endDate = document.getElementById("endDate").value;
+
+
+        if (
+            !category ||
+            !amount ||
+            !startDate ||
+            !endDate
+        ) {
+            alert("Please fill all required fields.");
+            return;
+        }
+
+
+        if (new Date(endDate) < new Date(startDate)) {
+            alert("End date cannot be earlier than start date.");
+            return;
+        }
+
+
+        alert("Budget added successfully.");
+
+        form.reset();
+
+        closeModal();
+
+    });
+    // edit budget
+    const editModal =
+        document.getElementById("editBudgetModal");
+
+    const closeEditModal =
+        document.getElementById("closeEditModal");
+
+    const cancelEditBudget =
+        document.getElementById("cancelEditBudget");
+
+    const editForm =
+        document.getElementById("editBudgetForm");
+
+
+    document.querySelectorAll(".edit-budget-btn")
+        .forEach(button => {
+
+            button.addEventListener("click", function () {
+
+                /* Example pre-filled values */
+
+                document.getElementById("editCategory").value = "Food";
+
+                document.getElementById("editAmount").value = "1500";
+
+                document.getElementById("editStartDate").value = "2026-03-02";
+
+                document.getElementById("editEndDate").value = "2026-04-02";
+
+                document.getElementById("editAlert").value = "90";
+
+                editModal.classList.add("active");
+
+            });
+
+        });
+
+
+    function closeEditBudgetModal() {
+
+        editModal.classList.remove("active");
+
+    }
+
+
+    closeEditModal.addEventListener(
+        "click",
+        closeEditBudgetModal
+    );
+
+    cancelEditBudget.addEventListener(
+        "click",
+        closeEditBudgetModal
+    );
+
+
+    editModal.addEventListener("click", function (e) {
+
+        if (e.target === editModal) {
+
+            closeEditBudgetModal();
+
+        }
+
+    });
+
+
+    editForm.addEventListener("submit", function (e) {
+
+        e.preventDefault();
+
+        const category =
+            document.getElementById("editCategory").value;
+
+        const amount =
+            document.getElementById("editAmount").value;
+
+        const startDate =
+            document.getElementById("editStartDate").value;
+
+        const endDate =
+            document.getElementById("editEndDate").value;
+
+
+        if (
+            !category ||
+            !amount ||
+            !startDate ||
+            !endDate
+        ) {
+            alert("Please fill all required fields.");
+            return;
+        }
+
+
+        if (
+            new Date(endDate) <
+            new Date(startDate)
+        ) {
+            alert(
+                "End date cannot be earlier than start date."
+            );
+
+            return;
+        }
+
+
+        alert("Budget updated successfully.");
+
+        closeEditBudgetModal();
+
+    });
+
+</script>
+
+{% endblock %}

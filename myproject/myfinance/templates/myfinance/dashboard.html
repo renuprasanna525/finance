@@ -1,0 +1,329 @@
+{% extends 'myfinance/base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+{% block page_header %}
+
+<header class="topbar">
+
+    <div>
+
+        <h1>Dashboard</h1>
+
+        <p>Welcome back! Here's your financial overview</p>
+
+    </div>
+
+    <div class="profile-section">
+
+        <button class="bell-btn">
+            <i class="fa-regular fa-bell"></i>
+        </button>
+
+        <img src="{% static 'images/lillyprofile.png' %}" alt="">
+
+        <span>Lilly</span>
+
+    </div>
+
+</header>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- SUMMARY SECTION -->
+<section class="page-content">
+
+    <section class="summary-grid">
+
+        {% for item in summaries %}
+
+        <div class="summary-card {{ item.color }}">
+
+            <div class="card-top">
+
+                <h3>{{ item.title }}</h3>
+
+                <div class="icon-box">
+                    <i class="{{ item.icon }}"></i>
+                </div>
+
+            </div>
+
+            <h2>{{ item.amount }}</h2>
+
+            <span>{{ item.subtitle }}</span>
+
+            <div class="wave"></div>
+
+        </div>
+
+        {% endfor %}
+
+    </section>
+
+
+    <!-- UPCOMING BILLS -->
+
+    <section class="bill-section">
+
+        <h2>Upcoming Bills</h2>
+
+        {% for bill in bills %}
+
+        <div class="bill-card">
+
+            <div class="bill-left">
+
+                <div class="bill-icon">
+                    <i class="{{ bill.icon }}"></i>
+                </div>
+
+                <div>
+
+                    <h3>{{ bill.title }}</h3>
+
+                    <span>{{ bill.due_text }}</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="bill-right">
+
+                <h4>₹ {{ bill.amount }}</h4>
+
+                <button>Paynow</button>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </section>
+</section>
+<section class="page-content">
+    <section class="trend-section">
+
+        <h2>Last Week Income & Expenses Trend</h2>
+
+        <div class="trend-chart">
+
+            <!-- Y Axis -->
+            <div class="y-axis">
+                <span>6000</span>
+                <span>4500</span>
+                <span>3000</span>
+                <span>1500</span>
+                <span>0</span>
+            </div>
+
+            <div class="chart-area">
+
+                <svg viewBox="0 0 1200 450" preserveAspectRatio="none">
+
+                    <defs>
+
+                        <!-- Income Gradient -->
+                        <linearGradient id="incomeFill" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#10b981" stop-opacity="0.9" />
+                            <stop offset="100%" stop-color="#10b981" stop-opacity="0" />
+                        </linearGradient>
+
+                        <!-- Expense Gradient -->
+                        <linearGradient id="expenseFill" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#6d4df2" stop-opacity="0.9" />
+                            <stop offset="100%" stop-color="#6d4df2" stop-opacity="0" />
+                        </linearGradient>
+
+                    </defs>
+
+                    <!-- Income Shape -->
+                    <path d="
+                    M0,150
+                    C70,300 120,420 210,450
+                    C300,450 350,450 420,450
+                    C510,350 570,250 660,250
+                    C750,250 810,350 900,450
+                    L900,450
+                    L0,450 Z" fill="url(#incomeFill)" stroke="#10b981" stroke-width="3" />
+
+                    <!-- Expense Shape -->
+                    <path d="
+                    M0,450
+                    C90,390 180,330 240,330
+                    C300,330 360,420 420,450
+                    C510,450 600,450 690,450
+                    C780,450 870,330 960,330
+                    C1020,330 1080,420 1140,450" fill="url(#expenseFill)" stroke="#6d4df2" stroke-width="3" />
+
+                </svg>
+
+                <!-- X Axis -->
+
+                <div class="x-axis">
+
+                    <span>Mar 1</span>
+                    <span>Mar 2</span>
+                    <span>Mar 3</span>
+                    <span>Mar 4</span>
+                    <span>Mar 5</span>
+                    <span>Mar 6</span>
+                    <span>Mar 7</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="chart-legend">
+
+            <div>
+                <span class="dot income-dot"></span>
+                Income
+            </div>
+
+            <div>
+                <span class="dot expense-dot"></span>
+                Expense
+            </div>
+
+        </div>
+
+    </section>
+    <section class="analytics-grid">
+
+        <!-- Expense Breakdown -->
+
+        <div class="expense-card">
+
+            <h2>Expense Breakdown</h2>
+
+            <div class="expense-content">
+
+                <div class="pie-chart">
+
+                    <div class="pie-center">
+
+                        {% if expense_data.first.center_image %}
+                        <img src="{{ expense_data.first.center_image.url }}" alt="Expense Center">
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+                <div class="expense-labels">
+
+                    {% for item in expense_data %}
+
+                    <div class="expense-item">
+
+                        <span class="expense-dot {{ item.color|lower }}"></span>
+
+                        {{ item.category }}
+                        ({{ item.percentage }}%)
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Recent Activity -->
+
+        <div class="activity-card">
+
+            <h2>Recent Activity</h2>
+
+            {% for item in activities %}
+
+            <div class="activity-row">
+
+                <div class="activity-left">
+
+                    <img src="{{ item.image.url }}" alt="{{ item.title }}">
+
+                    <div>
+
+                        <h4>{{ item.title }}</h4>
+
+                        <span>{{ item.subtitle }}</span>
+
+                    </div>
+
+                </div>
+
+                <div class="activity-price">
+
+                    ₹{{ item.amount }}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+    <section class="recent-transaction-section">
+
+        <h2>Recent Transactions</h2>
+
+        {% for transaction in recent_transactions %}
+
+        <div class="transaction-row">
+
+            <div class="transaction-left">
+
+                <img src="{{ transaction.image.url }}" alt="{{ transaction.title }}">
+
+                <div>
+
+                    <h4>{{ transaction.title }}</h4>
+
+                    <span>{{ transaction.subtitle }}</span>
+
+                </div>
+
+            </div>
+
+            <div class="transaction-price
+                    {% if transaction.transaction_type == 'income' %}
+                    income-price
+                    {% else %}
+                    expense-price
+                    {% endif %}">
+
+                {% if transaction.transaction_type == 'income' %}
+                + ₹{{ transaction.amount }}
+                {% else %}
+                - ₹{{ transaction.amount }}
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <p>No recent transactions available.</p>
+
+        {% endfor %}
+
+    </section>
+</section>
+
+
+{% endblock %}

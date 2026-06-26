@@ -1,0 +1,742 @@
+{% extends 'myfinance/base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/settings.css' %}">
+{% endblock %}
+{% block page_header %}
+
+<header class="topbar">
+
+    <div>
+
+        <h1>Settings</h1>
+
+        <p>Manage your account and preferences</p>
+
+    </div>
+
+    <div class="profile-section">
+
+        <button class="bell-btn">
+            <i class="fa-regular fa-bell"></i>
+        </button>
+
+        <img src="{% static 'images/lillyprofile.png' %}" alt="">
+
+        <span>Lilly</span>
+
+    </div>
+
+</header>
+{% endblock %}
+{% block content %}
+<section class="page-content">
+    <section class="settings-container">
+
+        <!-- Left Side -->
+        <div class="settings-card">
+
+            <div class="card-header">
+                <h2>Profile Settings</h2>
+                <p>Update your personal information.</p>
+            </div>
+
+            <div class="profile-upload">
+
+                <img id="profilePreview" src="{% static 'images/settingsimg.jpg' %}" alt="Profile">
+
+                <div class="upload-content">
+
+                    <input type="file" id="profileImage" accept="image/*" hidden>
+
+                    <button type="button" class="upload-btn" id="uploadBtn">
+                        <i class="fa-solid fa-upload"></i>
+                        Update
+                    </button>
+
+                    <span>Max file size: 500 KB</span>
+
+                </div>
+
+            </div>
+
+            <form id="profileForm" novalidate>
+
+                <div class="form-group">
+                    <label for="name">Name</label>
+
+                    <input type="text" id="name" placeholder="Enter your full name" value="Lilly">
+
+                    <small class="error"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email ID</label>
+
+                    <input type="email" id="email" placeholder="Enter your email">
+
+                    <small class="error"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+
+                    <input type="tel" id="phone" placeholder="Enter phone number">
+
+                    <small class="error"></small>
+                </div>
+
+                <button type="submit" class="save-btn">
+                    Save Changes
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- Right Side -->
+        <div class="security-wrapper">
+
+            <!-- Password -->
+            <div class="settings-card">
+
+                <div class="card-header">
+                    <h2>Security</h2>
+                </div>
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="password-field">
+
+                        <input type="password" id="password" placeholder="Enter new password">
+
+                        <i class="fa-regular fa-eye-slash toggle-password"></i>
+
+                    </div>
+
+                </div>
+
+                <button type="button" class="change-password-btn" id="openPasswordModal">
+                    Change Password
+                </button>
+                <!-- Change Password Modal -->
+
+                <div class="modal-overlay" id="passwordModal">
+
+                    <div class="password-modal">
+
+                        <div class="modal-header">
+
+                            <h2>Change Password</h2>
+
+                            <button type="button" class="close-modal" id="closePasswordModal">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+
+                        </div>
+
+                        <form id="changePasswordForm">
+
+                            <div class="form-group">
+
+                                <label for="currentPassword">
+                                    Current Password <span>*</span>
+                                </label>
+
+                                <div class="password-input">
+
+                                    <input type="password" id="currentPassword" placeholder="Enter current password">
+
+                                    <i class="fa-regular fa-eye-slash toggle-eye"></i>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="newPassword">
+                                    New Password <span>*</span>
+                                </label>
+
+                                <div class="password-input">
+
+                                    <input type="password" id="newPassword" placeholder="Enter new password">
+
+                                    <i class="fa-regular fa-eye-slash toggle-eye"></i>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="confirmPassword">
+                                    Confirm Password <span>*</span>
+                                </label>
+
+                                <div class="password-input">
+
+                                    <input type="password" id="confirmPassword" placeholder="Confirm new password">
+
+                                    <i class="fa-regular fa-eye-slash toggle-eye"></i>
+
+                                </div>
+
+                            </div>
+
+                            <div class="modal-actions">
+
+                                <button type="button" class="cancel-btn" id="cancelModal">
+                                    Cancel
+                                </button>
+
+                                <button type="submit" class="update-password-btn">
+                                    Save Password
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Two Factor Authentication -->
+            <div class="settings-card">
+
+                <div class="security-item">
+
+                    <div>
+
+                        <h3>Two-Factor Authentication</h3>
+
+                        <p>
+                            Add an extra layer of security to your account.
+                        </p>
+
+                    </div>
+
+                    <label class="switch">
+
+                        <input type="checkbox">
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- Currency -->
+            <div class="settings-card">
+
+                <div class="form-group">
+
+                    <label for="currency">
+                        Currency
+                    </label>
+
+                    <select id="currency">
+
+                        <option value="INR">
+                            ₹ INR
+                        </option>
+
+                        <option value="USD">
+                            $ USD
+                        </option>
+
+                        <option value="EUR">
+                            € EUR
+                        </option>
+
+                        <option value="SGD">
+                            S$ SGD
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <div class="settings-card">
+
+        <h2>General Settings</h2>
+
+        <div class="setting-row">
+
+            <h4>Bill Reminders</h4>
+
+            <div class="setting-action">
+
+                <span class="status-text">Off</span>
+
+                <label class="switch">
+                    <input type="checkbox" class="setting-toggle">
+                    <span class="slider"></span>
+                </label>
+
+            </div>
+
+        </div>
+
+        <div class="setting-row">
+
+            <h4>Budget Alerts</h4>
+
+            <div class="setting-action">
+
+                <span class="status-text">Off</span>
+
+                <label class="switch">
+                    <input type="checkbox" class="setting-toggle">
+                    <span class="slider"></span>
+                </label>
+
+            </div>
+
+        </div>
+
+        <div class="setting-row">
+
+            <h4>Transaction Alerts</h4>
+
+            <div class="setting-action">
+
+                <span class="status-text">Off</span>
+
+                <label class="switch">
+                    <input type="checkbox" class="setting-toggle">
+                    <span class="slider"></span>
+                </label>
+
+            </div>
+
+        </div>
+
+        <div class="setting-row">
+
+            <h4>UPI Connected</h4>
+
+            <div class="setting-action">
+
+                <span class="status-text">Off</span>
+
+                <label class="switch">
+                    <input type="checkbox" class="setting-toggle">
+                    <span class="slider"></span>
+                </label>
+
+            </div>
+
+        </div>
+
+        <div class="setting-row">
+
+            <h4>Bank Account Connected</h4>
+
+            <div class="setting-action">
+
+                <span class="status-text">Off</span>
+
+                <label class="switch">
+                    <input type="checkbox" class="setting-toggle">
+                    <span class="slider"></span>
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="action-settings-grid">
+
+        <!-- Data Management -->
+
+        <div class="action-card">
+
+            <h2>Data Management</h2>
+
+            <p>
+                Export your financial data
+            </p>
+
+            <button type="button" class="export-btn">
+
+                <i class="fa-solid fa-upload"></i>
+
+                Export Data
+
+            </button>
+
+        </div>
+
+
+        <!-- Danger Zone -->
+
+        <div class="action-card danger-card">
+
+            <h2>Danger Zone</h2>
+
+            <p>
+                Permanently delete all financial data from your account.
+            </p>
+
+            <button type="button" class="delete-btn">
+
+                <i class="fa-solid fa-trash"></i>
+
+                Delete Data
+
+            </button>
+
+        </div>
+
+    </div>
+</section>
+<script>
+    // Toggle Password
+    const togglePassword = document.querySelector('.toggle-password');
+    const passwordInput = document.getElementById('password');
+    if (togglePassword) {
+        togglePassword.addEventListener('click', () => {
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                togglePassword.classList.remove('fa-eye-slash');
+                togglePassword.classList.add('fa-eye');
+            } else {
+                passwordInput.type = 'password';
+                togglePassword.classList.remove('fa-eye');
+                togglePassword.classList.add('fa-eye-slash');
+            }
+
+        });
+    }
+
+    // Change password Form Validation
+    const modal = document.getElementById('passwordModal');
+
+    const openBtn = document.getElementById('openPasswordModal');
+
+    const closeBtn = document.getElementById('closePasswordModal');
+
+    const cancelBtn = document.getElementById('cancelModal');
+
+    const passwordForm = document.getElementById("changePasswordForm");
+
+
+    /* Open Modal */
+
+    openBtn.addEventListener('click', () => {
+        modal.classList.add('active');
+    });
+
+
+    /* Close Modal */
+
+    function closeModal() {
+
+        modal.classList.remove('active');
+
+        passwordForm.reset();
+
+        document.querySelectorAll('.toggle-eye').forEach(icon => {
+
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+
+        });
+
+        document.querySelectorAll('.password-input input').forEach(input => {
+            input.type = 'password';
+        });
+
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+
+    cancelBtn.addEventListener('click', closeModal);
+
+
+    /* Close when clicking overlay */
+
+    modal.addEventListener('click', function (e) {
+
+        if (e.target === modal) {
+            closeModal();
+        }
+
+    });
+
+
+    /* Eye Toggle */
+
+    document.querySelectorAll('.toggle-eye').forEach(icon => {
+
+        icon.addEventListener('click', function () {
+
+            const input = this.previousElementSibling;
+
+            if (input.type === 'password') {
+
+                input.type = 'text';
+
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+
+            } else {
+
+                input.type = 'password';
+
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+
+            }
+
+        });
+
+    });
+
+
+    /* Form Validation */
+
+    passwordForm.addEventListener('submit', function (e) {
+
+        e.preventDefault();
+
+        const currentPassword = document.getElementById('currentPassword').value.trim();
+
+        const newPassword = document.getElementById('newPassword').value.trim();
+
+        const confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+
+        if (
+            currentPassword === '' ||
+            newPassword === '' ||
+            confirmPassword === ''
+        ) {
+
+            alert('Please fill in all required fields.');
+
+            return;
+        }
+
+
+        if (newPassword.length < 8) {
+
+            alert('New password must contain at least 8 characters.');
+
+            return;
+        }
+
+
+        if (newPassword !== confirmPassword) {
+
+            alert('New password and confirm password do not match.');
+
+            return;
+        }
+
+
+        alert('Password changed successfully.');
+
+        closeModal();
+
+    });
+    // General Settings Logics
+    const toggles = document.querySelectorAll('.setting-toggle');
+
+    toggles.forEach(toggle => {
+
+        toggle.addEventListener('change', function () {
+
+            const status =
+                this.closest('.setting-action')
+                    .querySelector('.status-text');
+
+            status.textContent = this.checked ? 'On' : 'Off';
+
+        });
+
+    });
+
+    // Upload Image Logics
+    const uploadBtn = document.getElementById("uploadBtn");
+    const fileInput = document.getElementById("profileImage");
+    const preview = document.getElementById("profilePreview");
+
+    uploadBtn.addEventListener("click", () => {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener("change", function () {
+
+        const file = this.files[0];
+
+        if (!file) return;
+
+        // Maximum 500 KB
+        if (file.size > 500 * 1024) {
+            alert("Image size should not exceed 500 KB.");
+            this.value = "";
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    });
+
+    const profileForm = document.getElementById("profileForm");
+
+    profileForm.addEventListener("submit", function (e) {
+
+        e.preventDefault();
+
+        let isValid = true;
+
+        const name = document.getElementById("name");
+        const email = document.getElementById("email");
+        const phone = document.getElementById("phone");
+
+        document.querySelectorAll(".error").forEach(error => error.textContent = "");
+        document.querySelectorAll("input").forEach(input => {
+            input.classList.remove("error-border", "success-border");
+        });
+
+        // Name
+        if (name.value.trim() === "") {
+            showError(name, "Name is required");
+            isValid = false;
+        } else {
+            showSuccess(name);
+        }
+
+        // Email
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (email.value.trim() === "") {
+            showError(email, "Email is required");
+            isValid = false;
+        } else if (!emailPattern.test(email.value)) {
+            showError(email, "Enter a valid email");
+            isValid = false;
+        } else {
+            showSuccess(email);
+        }
+
+        // Phone
+        const phonePattern = /^[0-9]{10}$/;
+
+        if (phone.value.trim() === "") {
+            showError(phone, "Phone number is required");
+            isValid = false;
+        } else if (!phonePattern.test(phone.value)) {
+            showError(phone, "Enter a valid 10-digit phone number");
+            isValid = false;
+        } else {
+            showSuccess(phone);
+        }
+
+        if (isValid) {
+            alert("Profile updated successfully!");
+            profileForm.reset();
+        }
+
+    });
+
+    function showError(input, message) {
+        input.classList.add("error-border");
+        input.nextElementSibling.textContent = message;
+    }
+
+    function showSuccess(input) {
+        input.classList.add("success-border");
+    }
+    // Export Data
+    const exportBtn = document.querySelector(".export-btn");
+
+    exportBtn.addEventListener("click", () => {
+
+        const financeData = {
+            profile: {
+                name: "Lilly",
+                email: "lilly@example.com",
+                phone: "9876543210"
+            },
+            currency: "INR",
+            exportedOn: new Date().toLocaleString()
+        };
+
+        const blob = new Blob(
+            [JSON.stringify(financeData, null, 4)],
+            { type: "application/json" }
+        );
+
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "finance-data.json";
+        link.click();
+
+        URL.revokeObjectURL(url);
+
+        alert("Data exported successfully!");
+
+    });
+
+    const deleteBtn = document.querySelector(".delete-btn");
+
+    deleteBtn.addEventListener("click", () => {
+
+        const confirmDelete = confirm(
+            "Are you sure?\n\nThis action cannot be undone."
+        );
+
+        if (!confirmDelete) return;
+
+        document.getElementById("profileForm").reset();
+        document.getElementById("changePasswordForm").reset();
+
+        document.getElementById("profilePreview").src =
+            "{% static 'images/settingsimg.jpg' %}";
+
+        document.querySelectorAll(".setting-toggle").forEach(toggle => {
+            toggle.checked = false;
+        });
+
+        document.querySelectorAll(".status-text").forEach(status => {
+            status.textContent = "Off";
+        });
+
+        document.getElementById("currency").selectedIndex = 0;
+
+        alert("All data has been cleared.");
+
+    });
+</script>
+{% endblock %}

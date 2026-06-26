@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Logged Out | Vetri FinTrack</title>
+
+    <link rel="stylesheet" href="{% static 'css/logged_out.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+
+    <!-- Logout Card -->
+
+    <section class="logout-section">
+        <header class="logout-header">
+
+            <img src="{% static 'images/vetrilogo.png' %}" alt="Vetri FinTrack Logo" class="logo">
+
+        </header>
+
+        <img src="{% static 'images/goodbye.png' %}" alt="Logged Out" class="logout-image">
+
+        <h1>You've Been Logged Out</h1>
+
+        <p>
+            Thanks for using Vetri FinTrack
+        </p>
+
+        <a href="{% url 'login' %}" class="login-btn">
+            Back to Login
+        </a>
+
+    </section>
+
+</body>
+
+</html>

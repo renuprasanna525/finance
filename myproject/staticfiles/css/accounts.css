@@ -1,0 +1,623 @@
+/* Header Section */
+.topbar {
+    background: white;
+    padding: 25px 40px;
+    border-radius: 25px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topbar h1 {
+    font-size: 25px;
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.bell-btn {
+    width: 60px;
+    height: 60px;
+    border: none;
+    background: #8b5cf6;
+    color: white;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.bell-btn i {
+    font-size: 22px;
+}
+
+.profile-section img {
+    width: 70px;
+    height: 70px;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.page-content {
+    background: white;
+    margin-top: 15px;
+    border-radius: 25px;
+    padding: 50px;
+    min-height: 600px;
+    border: 2px solid #f43f5e;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+/* Accounts Summary Card */
+.summary-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary-card h3 {
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+
+.summary-card h2 {
+    font-size: 23px;
+    margin: 15px 0;
+}
+
+.summary-card span {
+    color: gray;
+}
+
+.icon-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.icon-box i {
+    font-size: 20px;
+}
+
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    border-radius: 100% 100% 0 0;
+    opacity: .2;
+}
+
+/* Purple - UPI Accounts */
+
+.purple {
+    border-bottom: 8px solid #6c4cf1;
+}
+
+.purple .icon-box,
+.purple .wave {
+    background: #6c4cf1;
+}
+
+/* Green - Total Balance */
+
+.green {
+    border-bottom: 8px solid #10b981;
+}
+
+.green .icon-box,
+.green .wave {
+    background: #10b981;
+}
+
+/* Red - Bank Accounts */
+
+.red {
+    border-bottom: 8px solid #f43f5e;
+}
+
+.red .icon-box,
+.red .wave {
+    background: #f43f5e;
+}
+
+/* Yellow - Credit Cards */
+
+.yellow {
+    border-bottom: 8px solid #facc15;
+}
+
+.yellow .icon-box,
+.yellow .wave {
+    background: #facc15;
+}
+
+@media (max-width: 992px) {
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-content {
+        padding: 30px 20px;
+    }
+}
+
+.bank-section {
+    margin-top: 35px;
+}
+
+.bank-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+.header-left h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 25px;
+    color: #111827;
+}
+
+.header-left h2 i {
+    color: #f43f5e;
+}
+
+.add-account-btn {
+    border: none;
+
+    background: #6c4cf1;
+    color: #fff;
+
+    padding: 14px 24px;
+
+    border-radius: 14px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    transition: .3s;
+}
+
+.add-account-btn:hover {
+    background: #5938ea;
+}
+
+
+/* Bank Cards */
+
+.bank-account-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.bank-card {
+    background: #fff;
+
+    border-radius: 25px;
+
+    padding: 25px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bank-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.bank-left img {
+    width: 75px;
+    height: 75px;
+
+    border-radius: 50%;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+    object-fit: cover;
+}
+
+.bank-info h4 {
+    margin: 0 0 8px;
+
+    color: #6c4cf1;
+
+    font-size: 20px;
+}
+
+.bank-info p {
+    margin: 0;
+
+    color: #6b7280;
+
+    font-size: 15px;
+}
+
+.bank-info span {
+    display: block;
+
+    margin-top: 8px;
+
+    color: #9ca3af;
+
+    font-size: 14px;
+}
+
+.bank-right {
+    text-align: right;
+}
+
+.bank-info h3 {
+    color: #10b981;
+    margin-top: 10px;
+    font-size: 21px;
+}
+
+.bank-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 18px;
+}
+
+.bank-actions button {
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+
+    font-size: 20px;
+}
+
+.bank-actions .fa-pen {
+    color: #111827;
+}
+
+.bank-actions .fa-trash-can {
+    color: #f43f5e;
+}
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+
+    .bank-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .bank-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .bank-right {
+        width: 100%;
+        text-align: left;
+    }
+
+    .bank-actions {
+        justify-content: flex-start;
+    }
+}
+
+/* ==========================
+   ACCOUNT MODAL OVERLAY
+========================== */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background: rgba(0, 0, 0, 0.5);
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    z-index: 9999;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+
+/* ==========================
+   MODAL CONTAINER
+========================== */
+
+.account-modal {
+    width: 100%;
+    max-width: 750px;
+
+    background: #ffffff;
+
+    border-radius: 24px;
+
+    padding: 30px;
+
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+
+    animation: modalFade 0.3s ease;
+}
+
+@keyframes modalFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ==========================
+   HEADER
+========================== */
+
+.account-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+.account-modal .modal-header h2 {
+    margin: 0;
+
+    font-size: 28px;
+    font-weight: 700;
+
+    color: #111827;
+}
+
+.account-modal .close-modal {
+    width: 40px;
+    height: 40px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #f3f4f6;
+
+    color: #6b7280;
+
+    cursor: pointer;
+
+    font-size: 18px;
+}
+
+.account-modal .close-modal:hover {
+    background: #e5e7eb;
+}
+
+
+/* ==========================
+   FORM
+========================== */
+
+.account-modal .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+.account-modal .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.account-modal .form-group label {
+    margin-bottom: 8px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    color: #374151;
+}
+
+.edit-form .form-group label {
+    text-align: left;
+}
+
+.account-modal .form-group label span {
+    color: #ef4444;
+}
+
+.account-modal .form-group input,
+.account-modal .form-group select {
+    width: 100%;
+    height: 52px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+
+    padding: 0 15px;
+
+    font-size: 15px;
+
+    background: #ffffff;
+    color: #111827;
+
+    outline: none;
+
+    box-sizing: border-box;
+}
+
+.account-modal .form-group input:focus,
+.account-modal .form-group select:focus {
+    border-color: #6c4cf1;
+
+    box-shadow: 0 0 0 3px rgba(108, 76, 241, 0.15);
+}
+
+
+/* ==========================
+   FOOTER BUTTONS
+========================== */
+
+.account-modal .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 35px;
+}
+
+
+/* Back Button */
+
+.account-modal .modal-footer .back-btn {
+    min-width: 150px;
+
+    padding: 14px 24px;
+
+    border: 2px solid #d1d5db;
+    border-radius: 12px;
+
+    background: #ffffff;
+    color: #374151;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+.account-modal .modal-footer .back-btn:hover {
+    background: #f9fafb;
+}
+
+
+/* Submit Button */
+
+.account-modal .modal-footer .submit-btn {
+    min-width: 170px;
+
+    padding: 14px 24px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #6c4cf1;
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+.account-modal .modal-footer .submit-btn:hover {
+    background: #5b3df0;
+}
+
+
+/* Force override if global CSS exists */
+
+.account-modal .modal-footer .back-btn,
+.account-modal .modal-footer .submit-btn {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media (max-width: 768px) {
+
+    .account-modal {
+        padding: 25px;
+    }
+
+    .account-modal .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .account-modal .modal-footer {
+        flex-direction: column;
+    }
+
+    .account-modal .modal-footer .back-btn,
+    .account-modal .modal-footer .submit-btn {
+        width: 100%;
+    }
+}
+
+/* Delete Button Styles */
+.delete-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #ef4444;
+    font-size: 18px;
+    transition: .3s;
+}
+
+.delete-btn:hover {
+    color: #dc2626;
+    transform: scale(1.1);
+}
