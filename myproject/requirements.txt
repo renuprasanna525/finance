@@ -1,0 +1,4 @@
+Django==5.x.x
+gunicorn==23.x.x
+whitenoise==6.x.x
+django-jazzmin==3.x.x
