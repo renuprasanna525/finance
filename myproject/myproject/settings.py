@@ -32,7 +32,7 @@ ALLOWED_HOSTS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://your-app-name.onrender.com",
+    "https://finance-xnjh.onrender.com",
 ]
 
 # Application definition
