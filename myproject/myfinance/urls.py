@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from . import views, api_views
 
 urlpatterns = [
     path("", views.login_page, name="login"),
@@ -34,5 +34,35 @@ urlpatterns = [
         "accounts/delete/<int:id>/",
         views.delete_account,
         name="delete_account",
+    ),
+    path(
+        "api/finance/summary/",
+        api_views.finance_summary_api,
+        name="finance_summary_api",
+    ),
+    path(
+        "api/finance/transactions/",
+        api_views.finance_transactions_api,
+        name="finance_transactions_api",
+    ),
+    path(
+        "api/finance/bills/",
+        api_views.finance_bills_api,
+        name="finance_bills_api",
+    ),
+    path(
+        "api/finance/budgets/",
+        api_views.finance_budgets_api,
+        name="finance_budgets_api",
+    ),
+    path(
+        "api/finance/accounts/",
+        api_views.finance_accounts_api,
+        name="finance_accounts_api",
+    ),
+    path(
+        "api/finance/reports/",
+        api_views.finance_reports_api,
+        name="finance_reports_api",
     ),
 ]
