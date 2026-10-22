@@ -286,42 +286,82 @@ def finance_reports_api(request):
             status=401,
         )
 
+    # Calculate all report totals from actual transactions.
+    income_total = Transaction.objects.filter(transaction_type="Income").aggregate(
+        total=Sum("amount")
+    )["total"] or Decimal("0")
+
+    expense_total = Transaction.objects.filter(transaction_type="Expense").aggregate(
+        total=Sum("amount")
+    )["total"] or Decimal("0")
+
     summaries = [
         {
-            "title": item.title,
-            "amount": item.amount,
-            "subtitle": item.subtitle,
-            "icon": item.icon,
-            "color": item.color,
-        }
-        for item in FinanceSummary.objects.all()[:4]
-    ]
-
-    categories = [
+            "title": "Total Income",
+            "amount": str(income_total),
+            "subtitle": "All-time income",
+            "icon": "income",
+            "color": "green",
+        },
         {
-            "id": item.id,
-            "name": item.name,
-            "amount": str(item.amount),
-            "percentage": item.percentage,
-            "category_type": item.category_type,
-            "color": item.color,
-            "icon": item.icon.url if item.icon else None,
-        }
-        for item in ExpenseCategory.objects.all()
+            "title": "Total Expenses",
+            "amount": str(expense_total),
+            "subtitle": "All-time expenses",
+            "icon": "expense",
+            "color": "red",
+        },
+        {
+            "title": "Net Balance",
+            "amount": str(income_total - expense_total),
+            "subtitle": "Income minus expenses",
+            "icon": "balance",
+            "color": "purple",
+        },
     ]
 
+    # Group expense transactions by their actual category.
+    category_rows = (
+        Transaction.objects.filter(transaction_type="Expense")
+        .values("category")
+        .annotate(total=Sum("amount"))
+        .order_by("-total", "category")
+    )
+
+    categories = []
+
+    for row in category_rows:
+        amount = row["total"] or Decimal("0")
+        percentage = (
+            round(amount * Decimal("100") / expense_total) if expense_total > 0 else 0
+        )
+
+        categories.append(
+            {
+                "name": row["category"] or "Uncategorized",
+                "amount": str(amount),
+                "percentage": percentage,
+                "category_type": row["category"] or "other",
+                "color": "#6366f1",
+                "icon": None,
+            }
+        )
+
+    # Return the five largest actual expense transactions.
     top_spendings = [
         {
             "id": item.id,
-            "name": item.name,
+            "name": item.title,
             "category": item.category,
             "amount": str(item.amount),
-            "spending_date": str(item.spending_date),
-            "image": item.image.url if item.image else None,
+            "spending_date": str(item.transaction_date),
+            "image": item.icon.url if item.icon else None,
         }
-        for item in TopSpending.objects.all()[:5]
+        for item in Transaction.objects.filter(transaction_type="Expense").order_by(
+            "-amount", "-transaction_date", "-id"
+        )[:5]
     ]
 
+    # Keep existing saved insights; do not invent new ones.
     insight = SmartInsight.objects.first()
     insights = None
 
